@@ -13,22 +13,14 @@ uniform float u_time;// Time in seconds since load
 #define t u_time
 #define r u_resolution
 
-// Plot a line on Y using a value between 0.0-1.0
-float plot(vec2 st, float pct){
-    return  smoothstep( pct-0.02, pct, st.y) -
-    smoothstep( pct, pct+0.02, st.y);
-}
-
 void main() {
     vec2 st = gl_FragCoord.xy/u_resolution;
 
     float y = -abs(sin(t + st.x * PI * 2.0)) * 0.5 + 0.5;
 
-    vec3 color = vec3(y);
+    float pct = smoothstep( 0.0, t - (floor(t / PI) * PI) , st.x );
 
-    float pct = plot(st, y);
-
-    color = (1.0 - pct) * color + pct * vec3(0.0, 1.0, 0.0);
+    vec3 color = vec3(pct, 0.0, 0.7);
 
     gl_FragColor = vec4(color, 1.0);
 }

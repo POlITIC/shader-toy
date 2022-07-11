@@ -75,8 +75,9 @@ window.onload = async () => {
 };
 
 const anim = (dt) => {
+    const t = dt/1000;
     gl.uniform2f(mouseUniformLocation, mousePos.x, mousePos.y);
-    gl.uniform1f(timeUniformLocation, dt/1000);
+    gl.uniform1f(timeUniformLocation, t);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
 
     requestAnimationFrame(anim);
